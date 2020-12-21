@@ -34,14 +34,16 @@ function TxListItem({ tx, showblockNumber }: { tx: any, showblockNumber?: boolea
 
       <TableCell>
         {tx.to !== null ?
+          <div>
           <Link
             component={({ className, children }: { children: any, className: string }) => (
               <RouterLink className={className} to={`/address/${tx.to}`} >
                 {children}
               </RouterLink>
             )}>
-            {tx.to}
-          </Link>
+            {tx.to} 
+          </Link> {tx.contractName}
+          </div>
           : null}
       </TableCell>
 
@@ -70,7 +72,7 @@ function TxList(props: ITxListProps) {
 
       <TableBody>
         {props.transactions.map(
-          (tx: any) =>
+          (tx: any) => 
             <TxListItem key={tx.hash} tx={tx} showblockNumber={props.showBlockNumber} />,
         )}
       </TableBody>

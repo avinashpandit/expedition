@@ -1,0 +1,70 @@
+{
+  "AUDM": {
+    "address": "0x515bAF984bf4847c6B3e9432fB075426027D1486",
+    "decimals": 18
+  },
+  "CADM": {
+    "address": "0x1C6FCb541b23881fEAf5d266e49AC32E6Aa5Aabc",
+    "decimals": 18
+  },
+  "CHFM": {
+    "address": "0x587Ba1F0a3131C5a661f44792A2eCB4828F4e3A5",
+    "decimals": 18
+  },
+  "EURM": {
+    "address": "0xffB8F521ef4De7B9E9da82a737317f4e53424F12",
+    "decimals": 18
+  },
+  "GBPM": {
+    "address": "0xAA9eEBc836fe990a29486EF466D5c492596C141E",
+    "decimals": 18
+  },
+  "HKDM": {
+    "address": "0xCf52Cf27a68891F27cdac4Ae52cEb592a7EC05c9",
+    "decimals": 18
+  },
+  "JPYM": {
+    "address": "0xc62C7e6B883e5b677645328BBc34397165e1aED1",
+    "decimals": 18
+  },
+  "MXNM": {
+    "address": "0x9846A84671c3eE2B05F9b00a545AF8B47D9AF1C1",
+    "decimals": 18
+  },
+  "NOKM": {
+    "address": "0xF365Db5B4E61a1a15D8d8f636fd2CcE42495a7A8",
+    "decimals": 18
+  },
+  "NZDM": {
+    "address": "0x608C70F96FBcAe10Dc5184d8CD0ECDc0799Fb4A8",
+    "decimals": 18
+  },
+  "PLNM": {
+    "address": "0x421DA96f02E960cA52a19ee53B913EBfb78940b6",
+    "decimals": 18
+  },
+  "RUBM": {
+    "address": "0xC251318Be140783D88c6f9099B91a93F1cFEd005",
+    "decimals": 18
+  },
+  "SGDM": {
+    "address": "0xd0F36d067928D97EB176f05D61cc4EF96FF3BD16",
+    "decimals": 18
+  },
+  "TRYM": {
+    "address": "0xB90AC9e2edD72E18182007dFC08F3ACc5ac1c85c",
+    "decimals": 18
+  },
+  "USDM": {
+    "address": "0x9249ebf309616C962b9524f992E631e63b6129A1",
+    "decimals": 18
+  },
+  "XAUM": {
+    "address": "0x61769b599ea09CD765d3890B7FaeA6F4b8b9A1c4",
+    "decimals": 18
+  },
+  "ZARM": {
+    "address": "0x09C33B30a50C55861e590D77b2d7716C3d4F98c8",
+    "decimals": 18
+  }
+}

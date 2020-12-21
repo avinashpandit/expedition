@@ -9,12 +9,15 @@ import { useHistory } from "react-router-dom";
 import { Table, TableBody, TableCell, TableRow, Button, LinearProgress, Typography } from "@material-ui/core";
 
 import BlockGasPrice from "./BlockGasPrice";
+import useGlobalDataStore from "../../stores/useGlobalDataStore";
 
 function BlockView(props: any) {
   const { block } = props;
   const history = useHistory();
   const { t } = useTranslation();
+  const contractMap : any = useGlobalDataStore();
 
+  console.log(JSON.stringify(contractMap));
   if (!block) {
     return (<div>Loading...</div>);
   }
@@ -25,6 +28,15 @@ function BlockView(props: any) {
     gasUsed, gasLimit, size,
   } = block;
 
+  if(transactions && transactions.length > 0)
+  {
+    for(let tx of transactions)
+    {
+        if(tx.to){
+          tx.contractName = contractMap.get(tx.to);
+        }
+    }
+  }
   const filledPercent = (hexToNumber(gasUsed) / hexToNumber(gasLimit)) * 100;
 
   return (
@@ -140,7 +152,7 @@ function BlockView(props: any) {
         </TableBody>
       </Table>
 
-      <TxList transactions={transactions} />
+      <TxList transactions={transactions}/>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import EthereumJSONRPC, { Block as IBlock } from "@etclabscore/ethereum-json-rpc
 
 export default function Block(props: any) {
   const { match: { params: { hash } } } = props;
-  const [erpc]: [EthereumJSONRPC, any] = useCoreGethStore();
+  const [erpc, urlVal]: [EthereumJSONRPC, any ] = useCoreGethStore();
   const [block, setBlock] = React.useState<IBlock>();
   React.useEffect(() => {
     if (!erpc) { return; }
