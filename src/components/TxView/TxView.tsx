@@ -6,20 +6,22 @@ import { hexToNumber } from "@etclabscore/eserialize";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import useGlobalDataStore from "../../stores/useGlobalDataStore";
+import DecodedERC20TxView from "./DecodedERC20TxView";
 
 const InputDataDecoder = require('ethereum-input-data-decoder');
 //const txDecoder =  require('ethereum-tx-decoder');
 const unit = require("ethjs-unit"); //tslint:disable-line
-
 
 export interface ITxViewProps {
   tx: any;
   receipt: any | null;
 }
 
+
 function TxView(props: ITxViewProps) {
   const { tx, receipt } = props;
   const globalStore : any = useGlobalDataStore();
+  const contractMap = globalStore['contractMap'];
   const erc20AbiData = globalStore['erc20AbiData'];
   var fnDecoder = new InputDataDecoder(erc20AbiData);
   
@@ -29,24 +31,7 @@ function TxView(props: ITxViewProps) {
     return null;
   }
 
-  let decodedData = '';
   let decodedInput = fnDecoder.decodeData(tx.input);
-  if(decodedInput && decodedInput.method)
-  {
-    decodedData = decodedInput.method + ' ';
-    if(decodedInput.names){
-      for(let key in decodedInput.names)
-      {
-        if(decodedInput.types && decodedInput.types[key]&& decodedInput.types[key] === 'address'){
-          decodedData += decodedInput.names[key] + ' : 0x' + decodedInput.inputs[key] + ' ';
-        }
-        else{
-          decodedData += decodedInput.names[key] + ' : ' + decodedInput.inputs[key] + ' ';
-        }
-      }
-    }
-  }
-  decodedData += '';
   
   return (
     <div>
@@ -57,7 +42,7 @@ function TxView(props: ITxViewProps) {
         style={{ position: "absolute", right: "10px", top: "75px" }}
       >View Raw</Button>
       <Typography variant="h6">Transaction</Typography>
-      <Table>
+      <Table  size="small">
         <TableBody>
           <TableRow>
             <TableCell>{t("Hash")}</TableCell>
@@ -115,6 +100,7 @@ function TxView(props: ITxViewProps) {
           <TableRow>
             <TableCell>{t("To")}</TableCell>
             <TableCell>
+            {contractMap.get(tx.to)}&nbsp; 
               {tx.to !== null ?
                 <Link
                   component={({ className, children }: { children: any, className: string }) => (
@@ -145,9 +131,10 @@ function TxView(props: ITxViewProps) {
           </TableRow>
 
           <TableRow>
-            <TableCell>{t("Raw")}</TableCell>
-            <TableCell>{decodedData}</TableCell>
+            <TableCell>{t("Decoded Contract Call")}</TableCell>
+            <TableCell><DecodedERC20TxView decodedTX={decodedInput} tx={tx}></DecodedERC20TxView></TableCell>
           </TableRow>
+
 
           <TableRow>
             <TableCell>v</TableCell>
@@ -169,7 +156,7 @@ function TxView(props: ITxViewProps) {
       <br />
       <Typography variant="h6">Receipt</Typography>
       {receipt &&
-        <Table>
+        <Table  size="small">
           <TableBody>
             <TableRow>
               <TableCell>{t("Hash")}</TableCell>

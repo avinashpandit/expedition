@@ -19,7 +19,7 @@ function BlockList({ blocks }: any) {
   });
   return (
     <div style={{ width: "100%", overflowX: "auto" }}>
-      <Table>
+      <Table  size="small">
         <TableHead>
           <TableRow>
             <TableCell><Typography>{t("Author")}</Typography></TableCell>

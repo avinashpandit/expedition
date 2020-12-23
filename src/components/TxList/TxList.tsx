@@ -34,7 +34,7 @@ function TxListItem({ tx, showblockNumber }: { tx: any, showblockNumber?: boolea
 
       <TableCell>
         {tx.to !== null ?
-          <div>
+          <div>{tx.contractName}&nbsp;
           <Link
             component={({ className, children }: { children: any, className: string }) => (
               <RouterLink className={className} to={`/address/${tx.to}`} >
@@ -42,7 +42,7 @@ function TxListItem({ tx, showblockNumber }: { tx: any, showblockNumber?: boolea
               </RouterLink>
             )}>
             {tx.to} 
-          </Link> {tx.contractName}
+          </Link>
           </div>
           : null}
       </TableCell>
@@ -59,7 +59,7 @@ export interface ITxListProps {
 
 function TxList(props: ITxListProps) {
   return (
-    <Table>
+    <Table  size="small" >
       <TableHead>
         <TableRow>
           {props.showBlockNumber && <TableCell>Block Number</TableCell>}

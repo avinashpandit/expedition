@@ -54,6 +54,7 @@ export const darkTheme = responsiveFontSizes(createMuiTheme({
     MuiTable: {
       root: {
         background: "transparent !important",
+        tableLayout: 'auto',
       },
     },
     MuiTypography: {

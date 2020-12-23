@@ -11,7 +11,7 @@ import ChartCard from "../components/ChartCard";
 import BlockListContainer from "./BlockList";
 import { hexToNumber } from "@etclabscore/eserialize";
 import { useTranslation } from "react-i18next";
-import { ArrowForwardIos } from "@material-ui/icons";
+
 import StatCharts from "../components/StatCharts";
 import EthereumJSONRPC, { Block as IBlock, IsSyncingResult as ISyncing} from "@etclabscore/ethereum-json-rpc";
 
@@ -133,16 +133,6 @@ export default (props: any) => {
         </Grid>
       </Grid>
       <StatCharts victoryTheme={victoryTheme} blocks={blocks} />
-      <Grid container justify="flex-end">
-        <Button
-          color="primary"
-          variant="outlined"
-          endIcon={<ArrowForwardIos />}
-          onClick={() => props.history.push("/stats/miners")}
-        >More Stats</Button>
-      </Grid>
-      <br />
-
       <BlockListContainer
         from={Math.max(blockNumber - 14, 0)}
         to={blockNumber}

@@ -18,7 +18,6 @@ function BlockView(props: any) {
   const globalStore : any = useGlobalDataStore();
   const contractMap = globalStore['contractMap'];
 
-  console.log(JSON.stringify(globalStore));
   if (!block) {
     return (<div>Loading...</div>);
   }

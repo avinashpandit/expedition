@@ -2,10 +2,11 @@ import React from "react";
 import BigNumber from "bignumber.js";
 import { hashesToGH } from "../formatters";
 import { hexToNumber } from "@etclabscore/eserialize";
-import { Grid } from "@material-ui/core";
+import { Grid , Button } from "@material-ui/core";
 import ChartCard from "../ChartCard";
 import { VictoryLine, VictoryBar, VictoryChart } from "victory";
 import { useTranslation } from "react-i18next";
+import { ArrowForwardIos } from "@material-ui/icons";
 
 const config = {
   blockTime: 15, // seconds
