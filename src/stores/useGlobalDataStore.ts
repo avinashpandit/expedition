@@ -1,7 +1,9 @@
 import React, { useState, Dispatch } from "react";
 import { createStore } from "reusable";
 
-import rawContracts from '../deployed-ERC20-contracts.json'
+import rawContracts from '../deployed-ERC20-contracts.json';
+import erc20Abi from '../ERC20-abi.json';
+
 
 export default createStore(() => {
     return useGlobalStore();
@@ -9,6 +11,8 @@ export default createStore(() => {
   
 function useGlobalStore(): any {
   const [rawContractsData , setRawContractsData] = useState(rawContracts);
+  const [erc20AbiData , setErc20AbiData] = useState(erc20Abi);
+  
   let contractMap = new Map<string,string>();
   for(let [name,val] of Object.entries(rawContractsData)){
     let contractVal : any = val;
@@ -27,5 +31,5 @@ function useGlobalStore(): any {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rawContractsData]);
-  return contractMap;
+  return {contractMap , erc20AbiData};
 }

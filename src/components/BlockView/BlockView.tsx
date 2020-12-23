@@ -15,9 +15,10 @@ function BlockView(props: any) {
   const { block } = props;
   const history = useHistory();
   const { t } = useTranslation();
-  const contractMap : any = useGlobalDataStore();
+  const globalStore : any = useGlobalDataStore();
+  const contractMap = globalStore['contractMap'];
 
-  console.log(JSON.stringify(contractMap));
+  console.log(JSON.stringify(globalStore));
   if (!block) {
     return (<div>Loading...</div>);
   }

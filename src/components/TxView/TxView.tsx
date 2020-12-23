@@ -5,8 +5,12 @@ import { Table, TableBody, TableCell, TableRow, Typography, Button } from "@mate
 import { hexToNumber } from "@etclabscore/eserialize";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
+import useGlobalDataStore from "../../stores/useGlobalDataStore";
 
+const InputDataDecoder = require('ethereum-input-data-decoder');
+//const txDecoder =  require('ethereum-tx-decoder');
 const unit = require("ethjs-unit"); //tslint:disable-line
+
 
 export interface ITxViewProps {
   tx: any;
@@ -15,12 +19,35 @@ export interface ITxViewProps {
 
 function TxView(props: ITxViewProps) {
   const { tx, receipt } = props;
+  const globalStore : any = useGlobalDataStore();
+  const erc20AbiData = globalStore['erc20AbiData'];
+  var fnDecoder = new InputDataDecoder(erc20AbiData);
+  
   const { t } = useTranslation();
   const history = useHistory();
   if (!tx) {
     return null;
   }
 
+  let decodedData = '';
+  let decodedInput = fnDecoder.decodeData(tx.input);
+  if(decodedInput && decodedInput.method)
+  {
+    decodedData = decodedInput.method + ' ';
+    if(decodedInput.names){
+      for(let key in decodedInput.names)
+      {
+        if(decodedInput.types && decodedInput.types[key]&& decodedInput.types[key] === 'address'){
+          decodedData += decodedInput.names[key] + ' : 0x' + decodedInput.inputs[key] + ' ';
+        }
+        else{
+          decodedData += decodedInput.names[key] + ' : ' + decodedInput.inputs[key] + ' ';
+        }
+      }
+    }
+  }
+  decodedData += '';
+  
   return (
     <div>
       <Button
@@ -115,6 +142,11 @@ function TxView(props: ITxViewProps) {
           <TableRow>
             <TableCell>{t("Input")}</TableCell>
             <TableCell>{tx.input}</TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>{t("Raw")}</TableCell>
+            <TableCell>{decodedData}</TableCell>
           </TableRow>
 
           <TableRow>
