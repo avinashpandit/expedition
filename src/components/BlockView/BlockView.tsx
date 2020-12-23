@@ -47,7 +47,7 @@ function BlockView(props: any) {
       >
         View Raw
       </Button>
-      <Table>
+      <Table size="small">
         <TableBody>
           <TableRow>
             <TableCell>{t("Number")}</TableCell>
