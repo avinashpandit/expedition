@@ -1,6 +1,7 @@
 import { CircularProgress } from "@material-ui/core";
 import * as React from "react";
 import AddressView from "../components/AddressView";
+import TokenList from '../components/TokenList';
 import _ from "lodash";
 import getBlocks, { useBlockNumber } from "../helpers";
 import useCoreGethStore from "../stores/useCoreGethStore";
@@ -32,7 +33,7 @@ const Address: React.FC<IProps> = ({ match, history }) => {
   const blockNum = block === undefined ? blockNumber : parseInt(block, 10);
   const [transactions, setTransactions] = React.useState<Transaction[]>([]);
 
-  const from = Math.max(blockNum ? blockNum : 0 - 99, 0);
+  const from = Math.max(blockNum ? blockNum - 50 : 0, 0);
   const to = blockNum;
 
   React.useEffect(() => {
@@ -99,6 +100,7 @@ const Address: React.FC<IProps> = ({ match, history }) => {
         balance={unit.fromWei(balance || 0, "ether")}
         code={code}
       />
+      <TokenList address={address}/>
       <AddressTransactions
         from={from}
         to={to}
