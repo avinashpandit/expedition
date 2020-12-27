@@ -1,9 +1,9 @@
 import React from "react";
+import greenColor from "@material-ui/core/colors/green";
 import { Table, TableRow, TableCell, TableHead, TableBody, Typography, Button } from "@material-ui/core";
 import { hexToString, hexToNumber } from "@etclabscore/eserialize";
 import { useHistory } from "react-router-dom";
 import _ from "lodash";
-import greenColor from "@material-ui/core/colors/green";
 
 const blockTopMiners = (blocks: any[]) => {
   const result = _(blocks).chain()

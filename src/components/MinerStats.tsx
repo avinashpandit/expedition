@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 import ChartCard from "./ChartCard";
 import { VictoryPie } from "victory";
 import { hexToString } from "@etclabscore/eserialize";

@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Button } from "@material-ui/core";
+import Button  from "@material-ui/core/Button";
 import Editor from "@monaco-editor/react";
 import useDarkMode from "use-dark-mode";
 

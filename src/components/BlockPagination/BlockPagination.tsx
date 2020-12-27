@@ -1,7 +1,8 @@
 
 import React from "react";
+import ArrowForwardIos  from "@material-ui/icons/ArrowForwardIos";
+import ArrowBackIos  from "@material-ui/icons/ArrowBackIos";
 import { Grid, IconButton, Typography } from "@material-ui/core";
-import { ArrowForwardIos, ArrowBackIos } from "@material-ui/icons";
 
 interface IProps {
   from: number;
