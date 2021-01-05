@@ -55,7 +55,7 @@ function TokenList(props: ITokenListProps) {
           try{
             let bnBalance = new BN(balance.toString());
             if(bnBalance.toNumber() > 0){
-              let balanceInCurrency = bnBalance.dividedBy( new BN(10).pow(6)).toFormat(2) ;
+              let balanceInCurrency = bnBalance.dividedBy( new BN(10).pow(18)).toFormat(2) ;
               let data = {name : name , address : contractAddress , balanceInUnits : balance.toString() , balanceInCurrency }
               balances.push(data);
               setBalances(balances);
