@@ -75,7 +75,7 @@ function TxView(props: ITxViewProps) {
 
           <TableRow>
             <TableCell>{t("Gas Price")}</TableCell>
-            <TableCell>{hexToNumber(tx.gasPrice)} Wei</TableCell>
+            <TableCell>{unit.fromWei(tx.gasPrice, "gwei")} Wei</TableCell>
           </TableRow>
 
           <TableRow>

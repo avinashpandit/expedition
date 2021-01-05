@@ -21,6 +21,11 @@ export const lightTheme = responsiveFontSizes(createMuiTheme({
         overflow: "visible !important",
       },
     },
+    MuiTableHead:{
+      root: {
+        background: grey[200],
+      },
+    },
   },
   palette: {
     background: {
@@ -60,6 +65,19 @@ export const darkTheme = responsiveFontSizes(createMuiTheme({
     MuiTypography: {
       root: {
         color: grey[400],
+      },
+    },
+    MuiCardContent: {
+      root: {
+        paddingBottom: 0,
+        "&:last-child": {
+          paddingBottom: 0
+        },
+      },
+    },
+    MuiTableHead:{
+      root: {
+        background: grey[800],
       },
     },
   },

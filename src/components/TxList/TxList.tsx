@@ -4,8 +4,38 @@ import Link from "@material-ui/core/Link";
 
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
 import { hexToNumber } from "@etclabscore/eserialize";
+import useGlobalDataStore from "../../stores/useGlobalDataStore";
+const unit = require("ethjs-unit"); //tslint:disable-line
+const InputDataDecoder = require('ethereum-input-data-decoder');
 
-function TxListItem({ tx, showblockNumber }: { tx: any, showblockNumber?: boolean }) {
+function TxListItem({ tx, fnDecoder , currency, showblockNumber }: { tx: any, fnDecoder : any, currency: string, showblockNumber?: boolean }) {
+  const txHashShort = tx.hash.substring(2, 6) + '—' + tx.hash.substring(tx.hash.length - 5, tx.hash.length - 1);
+  let decodedInput = fnDecoder.decodeData(tx.input);
+  let type = '';
+  let amount = unit.fromWei(tx.value, "ether");
+  let toAddress = tx.to;
+  let contractAddress = '';
+  if(decodedInput)
+  {
+    if(decodedInput.method)
+    {
+      type = decodedInput.method;
+      if(type === 'transfer' && decodedInput.names)
+      {
+        decodedInput.names.map((b: any, key: number) => {
+          if(decodedInput.types && decodedInput.types[key] && decodedInput.types[key] === 'address' && b === '_to'){
+            toAddress = '0x' + decodedInput.inputs[key];
+          }
+          else if(b === '_value')
+          {
+            amount = unit.fromWei(decodedInput.inputs[key], "gwei") ;
+          }
+        });
+        contractAddress = '0x' + tx.to.substring(2, 6) + '—' + tx.to.substring(tx.to.length - 5, tx.to.length - 1);
+      }
+    }
+  } 
+  
   return (
     <TableRow>
       {showblockNumber && <TableCell>{hexToNumber(tx.blockNumber)}</TableCell>}
@@ -17,9 +47,17 @@ function TxListItem({ tx, showblockNumber }: { tx: any, showblockNumber?: boolea
               {children}
             </RouterLink>
           )}>
-          {tx.hash}
+          {txHashShort}
         </Link>
       </TableCell>
+
+      <TableCell>{decodedInput ? decodedInput.method : ''}</TableCell>
+
+      <TableCell>{currency}</TableCell>
+
+      <TableCell>{amount}</TableCell>
+
+      <TableCell>{contractAddress}</TableCell>
 
       <TableCell>
         <Link
@@ -31,22 +69,23 @@ function TxListItem({ tx, showblockNumber }: { tx: any, showblockNumber?: boolea
           {tx.from}
         </Link>
       </TableCell>
+      
 
       <TableCell>
         {tx.to !== null ?
-          <div>{tx.contractName}&nbsp;
           <Link
             component={({ className, children }: { children: any, className: string }) => (
-              <RouterLink className={className} to={`/address/${tx.to}`} >
+              <RouterLink className={className} to={`/address/${toAddress}`} >
                 {children}
               </RouterLink>
             )}>
-            {tx.to} 
+            {toAddress} 
           </Link>
-          </div>
           : null}
       </TableCell>
 
+      <TableCell>{hexToNumber(tx.gas)}</TableCell>
+      <TableCell>{unit.fromWei(tx.gasPrice, "gwei")} Wei</TableCell>
       <TableCell>{hexToNumber(tx.transactionIndex)}</TableCell>
     </TableRow>
   );
@@ -58,14 +97,25 @@ export interface ITxListProps {
 }
 
 function TxList(props: ITxListProps) {
+  const globalStore : any = useGlobalDataStore();
+  const contractMap = globalStore['contractMap'];
+  const erc20AbiData = globalStore['erc20AbiData'];
+  var fnDecoder = new InputDataDecoder(erc20AbiData);
+
   return (
     <Table  size="small" >
       <TableHead>
         <TableRow>
           {props.showBlockNumber && <TableCell>Block Number</TableCell>}
           <TableCell>Hash</TableCell>
-          <TableCell>From</TableCell>
-          <TableCell>To</TableCell>
+          <TableCell>Type</TableCell>
+          <TableCell>Currency</TableCell>
+          <TableCell>Amount</TableCell>
+          <TableCell>Conract Account</TableCell>
+          <TableCell>From Account</TableCell>
+          <TableCell>To Account</TableCell>
+          <TableCell>Gas Used</TableCell>
+          <TableCell>Gas Price</TableCell> 
           <TableCell>Index</TableCell>
         </TableRow>
       </TableHead>
@@ -73,7 +123,7 @@ function TxList(props: ITxListProps) {
       <TableBody>
         {props.transactions.map(
           (tx: any) => 
-            <TxListItem key={tx.hash} tx={tx} showblockNumber={props.showBlockNumber} />,
+            <TxListItem key={tx.hash} tx={tx} fnDecoder={fnDecoder} currency={contractMap.get(tx.to)} showblockNumber={props.showBlockNumber} />,
         )}
       </TableBody>
     </Table>
