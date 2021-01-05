@@ -1,70 +1,70 @@
 {
   "AUDM": {
-    "address": "0x7529e9A901733Fc20C120655d577d1b29A30E838",
+    "address": "0x1C6FCb541b23881fEAf5d266e49AC32E6Aa5Aabc",
     "decimals": 18
   },
   "CADM": {
-    "address": "0x62386BCbe6950311522E0BFf305B33acbc7DB407",
+    "address": "0x587Ba1F0a3131C5a661f44792A2eCB4828F4e3A5",
     "decimals": 18
   },
   "CHFM": {
-    "address": "0xe16D326104bA1f6C5b374967A44cC30fa868d4c2",
+    "address": "0xffB8F521ef4De7B9E9da82a737317f4e53424F12",
     "decimals": 18
   },
   "EURM": {
-    "address": "0xCfEDA79d93BB1E2EB3acf0CA28c1c09FeCe02C65",
+    "address": "0xAA9eEBc836fe990a29486EF466D5c492596C141E",
     "decimals": 18
   },
   "GBPM": {
-    "address": "0xf346939d5ab96ca57Eb41866A271e9Af39eAbFF4",
+    "address": "0xCf52Cf27a68891F27cdac4Ae52cEb592a7EC05c9",
     "decimals": 18
   },
   "HKDM": {
-    "address": "0xbcd2b77D78746D08594C97567bAa33F8A414D7c8",
+    "address": "0xc62C7e6B883e5b677645328BBc34397165e1aED1",
     "decimals": 18
   },
   "JPYM": {
-    "address": "0x212b12c81BACC410BCa05F697051938e7b5156E6",
+    "address": "0x9846A84671c3eE2B05F9b00a545AF8B47D9AF1C1",
     "decimals": 18
   },
   "MXNM": {
-    "address": "0xA8DCf882Ce9504e2e5408Fe6025c6a83A43A2537",
+    "address": "0xF365Db5B4E61a1a15D8d8f636fd2CcE42495a7A8",
     "decimals": 18
   },
   "NOKM": {
-    "address": "0x349E41Af90d8ad24E666bA8E1dCE5236936f5b18",
+    "address": "0x608C70F96FBcAe10Dc5184d8CD0ECDc0799Fb4A8",
     "decimals": 18
   },
   "NZDM": {
-    "address": "0x76C0c6c102ae26c9f22a6c9033116078d17049f7",
+    "address": "0x421DA96f02E960cA52a19ee53B913EBfb78940b6",
     "decimals": 18
   },
   "PLNM": {
-    "address": "0x48E374671057C04cF1d8a09FEDF4e97473236785",
+    "address": "0xC251318Be140783D88c6f9099B91a93F1cFEd005",
     "decimals": 18
   },
   "RUBM": {
-    "address": "0xBCc0DdF52A9b91221Bf02F84E692B783202Fb238",
+    "address": "0xd0F36d067928D97EB176f05D61cc4EF96FF3BD16",
     "decimals": 18
   },
   "SGDM": {
-    "address": "0x67876162C7836BCedf65F1a3f105392E913BB7E7",
+    "address": "0xB90AC9e2edD72E18182007dFC08F3ACc5ac1c85c",
     "decimals": 18
   },
   "TRYM": {
-    "address": "0x18375Ae588a85ba3328e2fC5DEBc39561aDE021a",
+    "address": "0x9249ebf309616C962b9524f992E631e63b6129A1",
     "decimals": 18
   },
   "USDM": {
-    "address": "0x1D7b5b436DDef94182e00F9F7F385d83704463d9",
+    "address": "0x61769b599ea09CD765d3890B7FaeA6F4b8b9A1c4",
     "decimals": 18
   },
   "XAUM": {
-    "address": "0x42938BFBA21155b2B8553332d3b2daB6F902BC07",
+    "address": "0x09C33B30a50C55861e590D77b2d7716C3d4F98c8",
     "decimals": 18
   },
   "ZARM": {
-    "address": "0x15B35c9A9ae5e209C1fF06cB762f1735060a8070",
+    "address": "0x01001d561b4A9c1EB47Eab902bD4957068B432Db",
     "decimals": 18
   }
 }
