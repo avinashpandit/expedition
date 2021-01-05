@@ -30,7 +30,7 @@ function TxListItem({ tx, fnDecoder , currency, showblockNumber }: { tx: any, fn
           else if(b === '_value')
           {
             //amount = decodedInput.inputs[key].dividedBy( new BN(10).pow(18)).toFormat(2) ;
-            amount = unit.fromWei(decodedInput.inputs[key], "ether").toFormat(5) ;
+            amount = unit.fromWei(decodedInput.inputs[key], "ether");
           }
         });
         contractAddress = '0x' + tx.to.substring(2, 6) + '—' + tx.to.substring(tx.to.length - 5, tx.to.length - 1);
