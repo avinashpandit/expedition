@@ -5,6 +5,7 @@ import Link from "@material-ui/core/Link";
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
 import { hexToNumber } from "@etclabscore/eserialize";
 import useGlobalDataStore from "../../stores/useGlobalDataStore";
+const BN = require('bignumber.js');
 const unit = require("ethjs-unit"); //tslint:disable-line
 const InputDataDecoder = require('ethereum-input-data-decoder');
 
@@ -28,7 +29,8 @@ function TxListItem({ tx, fnDecoder , currency, showblockNumber }: { tx: any, fn
           }
           else if(b === '_value')
           {
-            amount = unit.fromWei(decodedInput.inputs[key], "ether") ;
+            amount = decodedInput.inputs[key].dividedBy( new BN(10).pow(18)).toFormat(2) ;
+            //amount = unit.fromWei(decodedInput.inputs[key], "ether") ;
           }
         });
         contractAddress = '0x' + tx.to.substring(2, 6) + '—' + tx.to.substring(tx.to.length - 5, tx.to.length - 1);
