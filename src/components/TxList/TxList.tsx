@@ -53,7 +53,7 @@ function TxListItem({ tx, fnDecoder , currency, showblockNumber }: { tx: any, fn
         </Link>
       </TableCell>
 
-      <TableCell>{decodedInput ? decodedInput.method : ''}</TableCell>
+      <TableCell>{type === 'transfer' ? 'payment' : type}</TableCell>
 
       <TableCell>{currency}</TableCell>
 
@@ -113,7 +113,7 @@ function TxList(props: ITxListProps) {
           <TableCell>Type</TableCell>
           <TableCell>Currency</TableCell>
           <TableCell>Amount</TableCell>
-          <TableCell>Conract Account</TableCell>
+          <TableCell>Contract Address</TableCell>
           <TableCell>From Account</TableCell>
           <TableCell>To Account</TableCell>
           <TableCell>Gas Used</TableCell>

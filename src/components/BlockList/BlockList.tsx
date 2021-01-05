@@ -4,6 +4,7 @@ import * as React from "react";
 import { hexToDate, hexToNumber, hexToString } from "@etclabscore/eserialize";
 import { Link as RouterLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import Fade from '@material-ui/core/Fade';
 
 const rightPaddingFix = {
   paddingRight: "24px",
@@ -22,13 +23,11 @@ function BlockList({ blocks }: any) {
       <Table  size="small">
         <TableHead>
           <TableRow>
-            <TableCell><Typography>{t("Author")}</Typography></TableCell>
+            <TableCell><Typography>{t("Validator")}</Typography></TableCell>
             <TableCell><Typography>{t("Block Number")}</Typography></TableCell>
             <TableCell><Typography>{t("Timestamp")}</Typography></TableCell>
-            <TableCell><Typography>{t("#Txs")}</Typography></TableCell>
+            <TableCell><Typography>{t("Txn Count")}</Typography></TableCell>
             <TableCell><Typography>{t("Gas Usage")}</Typography></TableCell>
-            <TableCell><Typography>{t("Gas Limit")}</Typography></TableCell>
-            <TableCell><Typography>{t("Uncles")}</Typography></TableCell>
             <TableCell><Typography>{t("Hash")}</Typography></TableCell>
           </TableRow>
         </TableHead>
@@ -43,6 +42,16 @@ function BlockList({ blocks }: any) {
             // Colorize left border derived from author credit account.
             const authorHashStyle = {
               borderLeft: `1em solid #${b.miner.substring(2, 8)}`,
+              '@keyframes blinker': {
+                from: {opacity: 1},
+                to: {opacity: 0}
+              },
+              headerGT: {
+                animationName: '$blinker',
+                animationDuration: '1s',
+                animationTimingFunction: 'linear',
+                animationIterationCount:'infinite',
+              },
             };
 
             // Tally transactions which create contracts vs transactions with addresses.
@@ -63,6 +72,7 @@ function BlockList({ blocks }: any) {
             const timeDifferenceFromParent = (index === sortedBlocks.length - 1) ? 0 : hexToNumber(b.timestamp) - hexToNumber(sortedBlocks[index + 1].timestamp);
 
             return (
+              
               <TableRow key={b.number} style={authorHashStyle}>
                 <TableCell style={rightPaddingFix}>
                   <Typography>
@@ -98,12 +108,6 @@ function BlockList({ blocks }: any) {
                 </TableCell>
                 <TableCell style={rightPaddingFix}>
                   <LinearProgress value={filledPercent} variant="determinate" />
-                </TableCell>
-                <TableCell>
-                  <Typography>{hexToNumber(b.gasLimit)}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>{b.uncles.length === 0 ? "" : b.uncles.length}</Typography>
                 </TableCell>
                 <TableCell style={rightPaddingFix}>
                   <Link
