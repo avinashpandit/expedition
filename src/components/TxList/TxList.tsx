@@ -28,7 +28,7 @@ function TxListItem({ tx, fnDecoder , currency, showblockNumber }: { tx: any, fn
           }
           else if(b === '_value')
           {
-            amount = unit.fromWei(decodedInput.inputs[key], "gwei") ;
+            amount = unit.fromWei(decodedInput.inputs[key], "ether") ;
           }
         });
         contractAddress = '0x' + tx.to.substring(2, 6) + '—' + tx.to.substring(tx.to.length - 5, tx.to.length - 1);
