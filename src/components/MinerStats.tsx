@@ -42,7 +42,7 @@ interface IProps {
 
 const config = {
   blockTime: 15, // seconds
-  blockHistoryLength: 100,
+  blockHistoryLength: 50,
   chartHeight: 200,
   chartWidth: 400,
 };

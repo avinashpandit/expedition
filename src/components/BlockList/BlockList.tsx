@@ -1,14 +1,32 @@
 import Link from "@material-ui/core/Link";
-import { Table, TableBody, TableCell, TableHead, TableRow, Typography, LinearProgress, Tooltip } from "@material-ui/core";
+import { Table, TableBody, TableCell, TableHead, TableRow, Typography, Tooltip } from "@material-ui/core";
+
+import LinearProgressWithLabel from "../StatCharts/LinearProgressWithLabel";
 import * as React from "react";
 import { hexToDate, hexToNumber, hexToString } from "@etclabscore/eserialize";
 import { Link as RouterLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import Fade from '@material-ui/core/Fade';
+import { CSSTransition } from 'react-transition-group';
+import styled, { keyframes, css } from "styled-components";
 
 const rightPaddingFix = {
   paddingRight: "24px",
 };
+
+var blinker = keyframes`
+  0% {background:#3f51b5; opacity: 1;}
+  100% {opacity: 50;}
+`;
+
+const blinkerRule = css`
+    ${blinker} 1s linear;
+`;
+// Colorize left border derived from author credit account.
+const BlinkingTableRow = styled(TableRow)`
+    borderLeft: 1em solid; 
+    animation: ${blinkerRule};
+`;
+
 
 function BlockList({ blocks }: any) {
   const { t } = useTranslation();
@@ -18,6 +36,8 @@ function BlockList({ blocks }: any) {
   const sortedBlocks = blocks.sort((a: { number: number }, b: { number: number }) => {
     return b.number - a.number;
   });
+
+
   return (
     <div style={{ width: "100%", overflowX: "auto" }}>
       <Table  size="small">
@@ -33,26 +53,11 @@ function BlockList({ blocks }: any) {
         </TableHead>
         <TableBody>
           {sortedBlocks.map((b: any, index: number) => {
-            const filledPercent = (hexToNumber(b.gasUsed) / hexToNumber(b.gasLimit)) * 100;
+            const filledPercent = hexToNumber(b.gasUsed) / 1000000;
 
             // Shorten hash views by concatenating first and last 4 chars.
             const blockHashShort = b.hash.substring(2, 6) + '—' + b.hash.substring(b.hash.length - 5, b.hash.length - 1);
             const authorHashShort = b.miner.substring(2, 6) + '—' + b.miner.substring(b.miner.length - 5, b.miner.length - 1);
-
-            // Colorize left border derived from author credit account.
-            const authorHashStyle = {
-              borderLeft: `1em solid #${b.miner.substring(2, 8)}`,
-              '@keyframes blinker': {
-                from: {opacity: 1},
-                to: {opacity: 0}
-              },
-              headerGT: {
-                animationName: '$blinker',
-                animationDuration: '1s',
-                animationTimingFunction: 'linear',
-                animationIterationCount:'infinite',
-              },
-            };
 
             // Tally transactions which create contracts vs transactions with addresses.
             var txTypes = {
@@ -72,8 +77,7 @@ function BlockList({ blocks }: any) {
             const timeDifferenceFromParent = (index === sortedBlocks.length - 1) ? 0 : hexToNumber(b.timestamp) - hexToNumber(sortedBlocks[index + 1].timestamp);
 
             return (
-              
-              <TableRow key={b.number} style={authorHashStyle}>
+              <BlinkingTableRow key={b.number} >
                 <TableCell style={rightPaddingFix}>
                   <Typography>
                     <Link
@@ -100,14 +104,14 @@ function BlockList({ blocks }: any) {
                 <TableCell style={rightPaddingFix}>
                   <Typography>{t("Timestamp Date", { date: hexToDate(b.timestamp) })}&nbsp;<sub>({timeDifferenceFromParent > 0 ? `+${timeDifferenceFromParent}` : `-${timeDifferenceFromParent}`}s)</sub></Typography>
                 </TableCell>
-                <TableCell style={rightPaddingFix}>
+                <TableCell style={rightPaddingFix} >
                   <Tooltip title={t("Create Transactions", {count: txTypes.create}) as string} placement="top">
                     <Typography variant="caption" color="textSecondary">{txTypes.create === 0 ? "" : txTypes.create}</Typography>
                   </Tooltip>
                   <Typography>{txTypes.transact}</Typography>
                 </TableCell>
                 <TableCell style={rightPaddingFix}>
-                  <LinearProgress value={filledPercent} variant="determinate" />
+                  <LinearProgressWithLabel value={filledPercent} variant="determinate" />
                 </TableCell>
                 <TableCell style={rightPaddingFix}>
                   <Link
@@ -119,7 +123,7 @@ function BlockList({ blocks }: any) {
                     {blockHashShort}
                   </Link>
                 </TableCell>
-              </TableRow>
+              </BlinkingTableRow>
             );
           })}
         </TableBody>

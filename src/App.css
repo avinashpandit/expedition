@@ -18,3 +18,17 @@ body {
   background: #ddd;
   border-radius: 5px;
 }
+
+.blink-enter {
+  opacity: 0;
+  background: grey
+}
+.blink-enter-active {
+  opacity: 1;
+  background: white;
+  transition: background 2200ms;
+}
+.blink-exit {
+  opacity: 1;
+  background: white;
+}

@@ -40,7 +40,7 @@ function TxListItem({ tx, fnDecoder , currency, showblockNumber }: { tx: any, fn
   
   return (
     <TableRow>
-      {showblockNumber && <TableCell>{hexToNumber(tx.blockNumber)}</TableCell>}
+      {showblockNumber && <TableCell align='right'>{hexToNumber(tx.blockNumber)}</TableCell>}
 
       <TableCell>
         <Link
@@ -57,7 +57,7 @@ function TxListItem({ tx, fnDecoder , currency, showblockNumber }: { tx: any, fn
 
       <TableCell>{currency}</TableCell>
 
-      <TableCell>{amount}</TableCell>
+      <TableCell align='right'>{amount}</TableCell>
 
       <TableCell>{contractAddress}</TableCell>
 
