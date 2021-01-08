@@ -6,7 +6,6 @@ import * as React from "react";
 import { hexToDate, hexToNumber, hexToString } from "@etclabscore/eserialize";
 import { Link as RouterLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { CSSTransition } from 'react-transition-group';
 import styled, { keyframes, css } from "styled-components";
 
 const rightPaddingFix = {
@@ -14,12 +13,12 @@ const rightPaddingFix = {
 };
 
 var blinker = keyframes`
-  0% {background:#3f51b5; opacity: 1;}
+  0% {background:#0000be; opacity: 1; color:#000000;}
   100% {opacity: 50;}
 `;
 
 const blinkerRule = css`
-    ${blinker} 1s linear;
+    ${blinker} 0.7s linear;
 `;
 // Colorize left border derived from author credit account.
 const BlinkingTableRow = styled(TableRow)`
