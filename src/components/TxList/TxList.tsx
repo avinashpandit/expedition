@@ -5,9 +5,25 @@ import Link from "@material-ui/core/Link";
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
 import { hexToNumber } from "@etclabscore/eserialize";
 import useGlobalDataStore from "../../stores/useGlobalDataStore";
+import styled, { keyframes, css } from "styled-components";
+
 const BN = require('bignumber.js');
 const unit = require("ethjs-unit"); //tslint:disable-line
 const InputDataDecoder = require('ethereum-input-data-decoder');
+
+var blinker = keyframes`
+  0% {background:#0000be; opacity: 1; color:#000000;}
+  100% {opacity: 50;}
+`;
+
+const blinkerRule = css`
+    ${blinker} 0.7s linear;
+`;
+// Colorize left border derived from author credit account.
+const BlinkingTableRow = styled(TableRow)`
+    borderLeft: 1em solid; 
+    animation: ${blinkerRule};
+`;
 
 function TxListItem({ tx, fnDecoder , currency, showblockNumber }: { tx: any, fnDecoder : any, currency: string, showblockNumber?: boolean }) {
   const txHashShort = tx.hash.substring(2, 6) + '—' + tx.hash.substring(tx.hash.length - 5, tx.hash.length - 1);
@@ -39,7 +55,7 @@ function TxListItem({ tx, fnDecoder , currency, showblockNumber }: { tx: any, fn
   } 
   
   return (
-    <TableRow>
+    <BlinkingTableRow key={tx.hash} >
       {showblockNumber && <TableCell align='right'>{hexToNumber(tx.blockNumber)}</TableCell>}
 
       <TableCell>
@@ -89,7 +105,7 @@ function TxListItem({ tx, fnDecoder , currency, showblockNumber }: { tx: any, fn
       <TableCell>{hexToNumber(tx.gas)}</TableCell>
       <TableCell>{unit.fromWei(tx.gasPrice, "gwei")} Wei</TableCell>
       <TableCell>{hexToNumber(tx.transactionIndex)}</TableCell>
-    </TableRow>
+    </BlinkingTableRow>
   );
 }
 

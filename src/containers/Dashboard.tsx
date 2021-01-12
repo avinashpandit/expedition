@@ -11,7 +11,6 @@ import ChartCard from "../components/ChartCard";
 import BlockListContainer from "./BlockList";
 import { hexToNumber } from "@etclabscore/eserialize";
 import { useTranslation } from "react-i18next";
-
 import StatCharts from "../components/StatCharts";
 import EthereumJSONRPC, { Block as IBlock, IsSyncingResult as ISyncing} from "@etclabscore/ethereum-json-rpc";
 
@@ -35,7 +34,6 @@ export default (props: any) => {
   const [gasPrice, setGasPrice] = useState<string>();
   const [syncing, setSyncing] = useState<ISyncing>();
   const [peerCount, setPeerCount] = useState<string>();
-
   const { t } = useTranslation();
 
   React.useEffect(() => {
@@ -133,15 +131,15 @@ export default (props: any) => {
         </Grid>
       </Grid>
       <StatCharts victoryTheme={victoryTheme} blocks={blocks} />
-      <BlockListContainer
-        from={Math.max(blockNumber - 14, 0)}
-        to={blockNumber}
-        disablePrev={true}
-        disableNext={blockNumber < 14}
-        onNext={() => {
-          props.history.push(`/blocks/${blockNumber - 15}`);
-        }}
-        style={{ marginTop: "5px" }} />
+        <BlockListContainer
+          from={Math.max(blockNumber - 14, 0)}
+          to={blockNumber}
+          disablePrev={true}
+          disableNext={blockNumber < 14}
+          onNext={() => {
+            props.history.push(`/blocks/${blockNumber - 15}`);
+          }}
+          style={{ marginTop: "5px" }} />
     </div >
   );
 };
