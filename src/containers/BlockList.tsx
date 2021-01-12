@@ -28,9 +28,13 @@ export default function BlockListContainer(props: IProps) {
   React.useEffect(() => {
     if (!erpc) { return; }
     getBlocks(from, to, erpc).then(blocks => {
-      setBlocks(blocks);
+      const sortedBlocks = blocks.sort((a: { number: number }, b: { number: number }) => {
+        return b.number - a.number;
+      });
+    
+      setBlocks(sortedBlocks);
       let txs : ITransaction[] = [];
-      for(let block of blocks)
+      for(let block of sortedBlocks)
       {
         txs = txs.concat(block.transactions);
         if(txs.length > 100)
