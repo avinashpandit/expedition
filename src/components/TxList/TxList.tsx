@@ -58,7 +58,7 @@ function TxListItem({ tx, fnDecoder , currency, showblockNumber }: { tx: any, fn
     <BlinkingTableRow key={tx.hash} >
       {showblockNumber && <TableCell align='right'>{hexToNumber(tx.blockNumber)}</TableCell>}
 
-      <TableCell>
+      <TableCell style={{minWidth: '200px'}}>
         <Link
           component={({ className, children }: { children: any, className: string }) => (
             <RouterLink className={className} to={`/tx/${tx.hash}`} >

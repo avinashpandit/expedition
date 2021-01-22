@@ -41,6 +41,9 @@ function TokenList(props: ITokenListProps) {
   const contractMap = globalStore['contractMap'];
   const provider = globalStore['provider'];
   const erc20AbiData = globalStore['erc20AbiData'];
+  const balanceCheckerAddress = globalStore['balanceCheckerAddress'];
+  const balanceCheckerAbiData = globalStore['balanceCheckerAbiData'];
+  
   const address = props.address;
   const darkMode = useDarkMode();
   const { t } = useTranslation();
@@ -50,23 +53,46 @@ function TokenList(props: ITokenListProps) {
     if(contractMap)
     {
       let balances : ITokenBalanceProps[] = [];
-      for(let [contractAddress,name] of contractMap.entries()){
-        const contract = new ethers.Contract(contractAddress, erc20AbiData, provider);
-        contract.balanceOf(address).then((balance:any) => {
-          try{
-            let bnBalance = new BN(balance.toString());
-            if(bnBalance.toNumber() > 0){
-              let balanceInCurrency = bnBalance.dividedBy( new BN(10).pow(18)) ;
-              let data = {name : name , address : contractAddress ,  balanceInCurrency : balanceInCurrency }
-              balances.push(data);
-              setBalances(balances);
+      if(balanceCheckerAddress){
+        const balanceCheckerContract = new ethers.Contract(balanceCheckerAddress, balanceCheckerAbiData, provider);
+        try {
+          balanceCheckerContract.balances([address], Array.from(contractMap.keys())).then((values:any) => {
+            let tokenIdx = 0;
+            for(let [contractAddress,name] of contractMap.entries()){
+                const balance = values[tokenIdx++];
+                let bnBalance = new BN(balance.toString());
+                if(bnBalance.toNumber() > 0){
+                  let balanceInCurrency = bnBalance.dividedBy( new BN(10).pow(18)) ;
+                  let data = {name : name , address : contractAddress ,  balanceInCurrency : balanceInCurrency }
+                  balances.push(data);
+                  setBalances(balances);
+                }
             }
-          }
-          catch(err){
-            console.log('Error in getting balance');
-          }
-        }).catch();
+          });
+        }
+        catch (e) {
+        }      
       }
+      else{
+        for(let [contractAddress,name] of contractMap.entries()){
+          const contract = new ethers.Contract(contractAddress, erc20AbiData, provider);
+          contract.balanceOf(address).then((balance:any) => {
+            try{
+              let bnBalance = new BN(balance.toString());
+              if(bnBalance.toNumber() > 0){
+                let balanceInCurrency = bnBalance.dividedBy( new BN(10).pow(18)) ;
+                let data = {name : name , address : contractAddress ,  balanceInCurrency : balanceInCurrency }
+                balances.push(data);
+                setBalances(balances);
+              }
+            }
+            catch(err){
+              console.log('Error in getting balance');
+            }
+          }).catch();
+        }
+    }
+
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
