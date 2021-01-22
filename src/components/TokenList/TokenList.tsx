@@ -65,9 +65,9 @@ function TokenList(props: ITokenListProps) {
                   let balanceInCurrency = bnBalance.dividedBy( new BN(10).pow(18)) ;
                   let data = {name : name , address : contractAddress ,  balanceInCurrency : balanceInCurrency }
                   balances.push(data);
-                  setBalances(balances);
                 }
             }
+            setBalances(balances);
           });
         }
         catch (e) {
